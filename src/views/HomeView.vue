@@ -1,18 +1,30 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <div class="wrapper mt-5">
+    <div class="container">
+        <div class="grid d-flex justify-content-between flex-wrap">
+          <card-component v-for="tour in tours" :tour="tour" :key="tour.title" @clickCard="navigate"/>
+        </div>
+    </div>
+</div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+  import CardComponent from '@/components/CardComponent.vue';
 export default {
-  name: 'HomeView',
-  components: {
-    HelloWorld
+  components: { CardComponent },
+  computed: {
+      tours() {
+        return this.$store.getters["getTours"];
+      }
+    },
+    methods: {
+      navigate(id) {
+        this.$router.push({name: 'tour', params: {id: id}})
+      }
+    },
   }
-}
 </script>
+
+<style lang="scss" scoped>
+
+</style>
